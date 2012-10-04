@@ -1,14 +1,14 @@
 ## powersave
 
-My configuration for maximizing the battery life on my Thinkpad T530.
+My configuration for maximizing the battery life on my Vaio VPCSA4. A fork
+from [vodik](https://github.com/vodik)'s
+[powersave](https://github.com/vodik/powersave)
 
-Included here is a systemd service file, various config-lets and a few
-utilities to set or control certain power saving features. I set as much
-as I can statically on boot; I think its silly to increase power
-consumption simply because I'm on AC power. This is integrated with my
+Included here is a systemd service file and various config-lets that set or
+control certain power saving features. I set as much
+as I can statically on boot; I think it's silly to increase power
+consumption simply because I'm on AC power. This is integrated with vodik's
 [backlight utilities][backlight].
-
-A `PKGBUILD` is included as a convenience.
 
 ### powersave.service
 
@@ -21,23 +21,29 @@ iw dev wlan0 set power_save on
 
 ### modprobe.d/powersave.conf
 
-Enable `power_save=1` for `snd_hda_intel`
+Enable `power_save=1` and `power_save_controller=Y` for `snd_hda_intel`
 
 ### sysctl.d/powersave.conf
 
 - disable NMI watchdog
 - set laptop mode
-- increase the dirty writeback time
+- adjust the dirty ratio
+- increase the dirty expire/writeback time
 
 ### tmpfiles.d/powersave.conf
 
-Enable pci, usb, and sata powersaving features:
+Disable Radeon whistler, keyboard backlight. Enable pci, usb, and sata powersaving features:
 
 ```
-w /sys/bus/pci/devices/*/power/control - - - - auto
+w /sys/kernel/debug/vgaswitcheroo/switch - - - - OFF
+w /sys/class/backlight/acpi_video*/brightness - - - - 0
+w /sys/devices/platform/sony-laptop/kbd_backlight - - - - 0
+w /sys/devices/*/power/control - - - - auto
+w /sys/devices/system/cpu/sched_mc_power_savings - - - - 1
+w /sys/bus/*/devices/*/power/control - - - - auto
 w /sys/bus/usb/devices/*/power/autosuspend - - - - 1
 w /sys/bus/usb/devices/*/power/level - - - - auto
-w /sys/class/scsi_host/host*/link_power_management_policy - - - - min_power
+w /sys/class/scsi_host/host?/link_power_management_policy - - - - min_power
 ```
 
 ### rules.d/50-powersave.rules
