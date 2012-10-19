@@ -1,0 +1,4 @@
+# /etc/udev/rules.d/40-radeon.rules
+# vim: ft=udevrules
+KERNEL=="radeon", RUN+="/usr/bin/radeon"
+
