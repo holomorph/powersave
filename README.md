@@ -1,8 +1,7 @@
 ## powersave
-
-My configuration for maximizing the battery life on my Vaio VPCSA4. A fork
-from [vodik](https://github.com/vodik)'s
-[powersave](https://github.com/vodik/powersave)
+A fork from [vodik](https://github.com/vodik)'s
+[powersave](https://github.com/vodik/powersave).
+My configuration for maximizing the battery life on my Vaio VPCSA4.
 
 Included here are various config-lets that set or
 control certain power saving features. As much as possible is set
@@ -10,9 +9,13 @@ statically on boot; it's silly to have needless power
 consumption. This is integrated with vodik's
 [backlight utilities][backlight].
 
-### modprobe.d/{modprobe.conf,powersave.conf}
+### modprobe.d/powersave.conf
 
-Set `autosuspend=1` for `usbcore`, and enable `power_save=1` and `power_save_controller=Y` for `snd_hda_intel`.
+Set the following kernel module options:
+
+- `kbd_backlight=0` for `sony_laptop`
+- `autosuspend=1` for `usbcore`
+- `power_save=1` and `power_save_controller=Y` for `snd_hda_intel`
 
 ### sysctl.d/powersave.conf
 
@@ -23,24 +26,35 @@ Set `autosuspend=1` for `usbcore`, and enable `power_save=1` and `power_save_con
 
 ### tmpfiles.d/powersave.conf
 
-Disable Radeon whistler, keyboard backlight. Enable pci, usb, and sata powersaving features:
+Set thermal control, scheduler and sata powersaving features:
 
 ```
-w /sys/kernel/debug/vgaswitcheroo/switch - - - - OFF
-w /sys/devices/platform/sony-laptop/kbd_backlight - - - - 0
-w /sys/devices/*/power/control - - - - auto
+w /sys/devices/platform/sony-laptop/thermal_control - - - - silent
 w /sys/devices/system/cpu/sched_mc_power_savings - - - - 1
-w /sys/bus/*/devices/*/power/control - - - - auto
-w /sys/bus/usb/devices/*/power/level - - - - auto
-w /sys/class/scsi_host/host?/link_power_management_policy - - - - min_power
+w /sys/class/scsi_host/host*/link_power_management_policy - - - - min_power
+
 ```
 
-### rules.d/50-network-powersave.rules
+### rules.d/50-{backlight,network,pci,usb,radeon}-powersave.rules
+Set brightness and handle `dimmer.service`.
+
 Set the powersaving features that must be enabled by 3rd-party commands:
 
 ```
 ethtool -s eth0 wol d
 iw dev wlan0 set power_save on
+```
+Set power management attributes `power/control="auto"` for `pci` and `usb` devices.
+
+Disable radeon whistler
+```
+KERNEL=="radeon", RUN+="/usr/bin/radeon"
+```
+
+### radeon
+```
+#!/bin/sh
+echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
 ```
 
 [backlight]: https://github.com/vodik/backlight-utils
