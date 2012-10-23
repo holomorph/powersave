@@ -48,7 +48,8 @@ Set power management attributes `power/control="auto"` for `pci` and `usb` devic
 
 Disable radeon whistler
 ```
-KERNEL=="radeon", RUN+="/usr/bin/radeon"
+KERNEL=="card1", SUBSYSTEM=="drm", RUN+="/usr/bin/radeon"
+
 ```
 
 ### radeon

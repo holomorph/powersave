@@ -1,4 +1,4 @@
-# /etc/udev/rules.d/40-radeon.rules
+# /etc/udev/rules.d/50-radeon.rules
 # vim: ft=udevrules
-KERNEL=="radeon", RUN+="/usr/bin/radeon"
+KERNEL=="card1", SUBSYSTEM=="drm", RUN+="/usr/bin/radeon"
 
