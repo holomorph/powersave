@@ -32,7 +32,6 @@ Set thermal control, scheduler and sata powersaving features:
 w /sys/devices/platform/sony-laptop/thermal_control - - - - silent
 w /sys/devices/system/cpu/sched_mc_power_savings - - - - 1
 w /sys/class/scsi_host/host*/link_power_management_policy - - - - min_power
-
 ```
 
 ### rules.d/50-{backlight,network,pci,usb,radeon}-powersave.rules
@@ -49,7 +48,6 @@ Set power management attributes `power/control="auto"` for `pci` and `usb` devic
 Disable radeon whistler
 ```
 KERNEL=="card1", SUBSYSTEM=="drm", RUN+="/usr/bin/radeon"
-
 ```
 
 ### radeon
