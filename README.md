@@ -31,10 +31,9 @@ Set thermal control, scheduler and sata powersaving features:
 ```
 w /sys/devices/platform/sony-laptop/thermal_control - - - - silent
 w /sys/devices/system/cpu/sched_mc_power_savings - - - - 1
-w /sys/class/scsi_host/host*/link_power_management_policy - - - - min_power
 ```
 
-### rules.d/50-{backlight,network,pci,usb,radeon}-powersave.rules
+### rules.d/50-{backlight,network,pci,usb,radeon,sata,sony}-powersave.rules
 Set brightness and handle `dimmer.service`.
 
 Set the powersaving features that must be enabled by 3rd-party commands:
@@ -44,6 +43,12 @@ ethtool -s eth0 wol d
 iw dev wlan0 set power_save on
 ```
 Set power management attributes `power/control="auto"` for `pci` and `usb` devices.
+
+Enable SATA powersaving features
+```
+ACTION=="add", SUBSYSTEM=="scsi_host", ATTR{link_power_management_policy}="min_power"
+```
+Set fan control profile `silent` for `sony-laptop`.
 
 Disable radeon whistler
 ```

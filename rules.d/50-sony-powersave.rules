@@ -1,0 +1,3 @@
+# /etc/udev/rules.d/50-sony-powersave.rules
+# vim: ft=udevrules
+KERNEL=="sony-laptop", SUBSYSTEM=="platform", DRIVER=="sony-laptop", ATTR{thermal_control}="silent"
