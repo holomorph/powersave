@@ -28,7 +28,7 @@ sysctl.d/powersave.conf
 rules.d/50-{backlight,network,pci,usb,radeon,sata,sony}-powersave.rules
 -----------------------------------------------------------------------
 
-- Set brightness and manage ``dimmer.service``.
+- Set brightness depending on AC power.
 
 - Set the powersaving features that must be enabled by 3rd-party commands:
 
