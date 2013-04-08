@@ -12,7 +12,7 @@ md5sums=('SKIP')
 
 pkgver() {
   cd "powersave"
-  echo "$(git rev-list --count HEAD).$(git describe --always )"
+  echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
 package() {
