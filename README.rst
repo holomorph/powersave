@@ -30,9 +30,7 @@ rules.d/50-{backlight,network,pci,usb,radeon,sata,sony}-powersave.rules
 
 - Set brightness depending on AC power.
 
-- Set the powersaving features that must be enabled by 3rd-party commands:
-
-::
+- Set the powersaving features that must be enabled by 3rd-party commands:::
 
   ethtool -s enp2s0 wol d
   iw dev wlp2s0 set power_save on
@@ -44,9 +42,7 @@ rules.d/50-{backlight,network,pci,usb,radeon,sata,sony}-powersave.rules
 
 - Set fan control profile ``silent`` for ``sony-laptop``.
 
-- Disable radeon whistler:
-
-::
+- Disable radeon whistler:::
 
   KERNEL=="card1", SUBSYSTEM=="drm", RUN+="/usr/bin/radeon"
 
