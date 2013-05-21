@@ -35,8 +35,8 @@ rules.d/50-*-powersave.rules
 
 ::
 
-  ethtool -s enp2s0 wol d
-  iw dev wlp2s0 set power_save on
+  ethtool -s ethX wol d
+  iw dev wlanX set power_save on
 
 - ``pci`` & ``usb``: Set power management attributes ``power/control="auto"``
   for PCI and USB devices.
