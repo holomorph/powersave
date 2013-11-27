@@ -2,4 +2,3 @@
 # vim: ft=udevrules
 
 ACTION=="add", SUBSYSTEM=="scsi_host", ATTR{link_power_management_policy}="min_power"
-
