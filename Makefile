@@ -5,7 +5,6 @@ LIBDIR = $(PREFIX)/lib
 RULES = rules.d/50-backlight-powersave.rules \
         rules.d/50-network-powersave.rules \
         rules.d/50-pci-powersave.rules \
-        rules.d/50-radeon.rules \
         rules.d/50-sata-powersave.rules \
         rules.d/50-sony-powersave.rules \
         rules.d/50-usb-powersave.rules
@@ -13,7 +12,6 @@ RULES = rules.d/50-backlight-powersave.rules \
 all:
 
 install:
-	install -Dm755 radeon $(DESTDIR)$(BINDIR)/radeon
 	install -d $(DESTDIR)$(LIBDIR)/modprobe.d
 	install -d $(DESTDIR)$(LIBDIR)/udev/rules.d
 	install -d $(DESTDIR)$(LIBDIR)/sysctl.d

@@ -43,16 +43,6 @@ rules.d/50-*-powersave.rules
 
 - `sony`: Set fan control profile `silent` for `sony-laptop`.
 
-- Disable radeon whistler:
-
-  KERNEL=="card1", SUBSYSTEM=="drm", RUN+="/usr/bin/radeon"
-
-radeon
-------
-
-  #!/bin/sh
-  echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
-
 Links
 -----
 
